@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './styles/FormComponent.css';
+import { database } from './utilities/firebase';
+import { ref, set } from "firebase/database";
 
 const FormComponent = () => {
   const [formData, setFormData] = useState({
@@ -28,7 +30,27 @@ const FormComponent = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    // Should be either hash value or changed to userId later
+    const plantId = 3;
+    const dbRef = ref(database, `plants/${plantId}`);
+    set(dbRef, {
+      care: "Take out daily for sun",
+      duration: "3 weeks",
+      favorite: false,
+      imageUrl: "/plant3.webp",
+      name: "Palm tree",
+      price: 30,
+      reviews: 200,
+      rating: 4
+    })
+    // successful posting redirects user to postings
+    .then(() => {
+      window.location.href = "/listings";
+    })
+    // catch error
+    .catch((error) => {
+      console.error("Error storing data: ", error)
+    })
   };
 
   return (

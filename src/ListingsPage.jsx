@@ -1,51 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { ref, child, get } from "firebase/database";
+import { database } from "./utilities/firebase";
 import "./ListingsPage.css"; // Include your custom CSS for this page
 
 const ListingsPage = () => {
-  const plants = [
-    {
-      id: 1,
-      name: "Sam's Monstera Plant",
-      duration: "2 weeks",
-      care: "Water on Sundays, get a lot of light!",
-      rating: 5.0,
-      reviews: 318,
-      price: 20,
-      imageUrl: "/plant1.webp",
-      favorite: false,
-    },
-    {
-      id: 2,
-      name: "Charming lil Cacti",
-      duration: "1 month",
-      care: "Lot of light, outdoors, needs a pot",
-      rating: 5.0,
-      reviews: 318,
-      price: 10,
-      imageUrl: "/plant2.webp",
-      favorite: true,
-    },
-    {
-      id: 3,
-      name: "Vine plant needs love while on Winter break",
-      location: "Entire home in Bordeaux",
-      duration: "1 month",
-      care: "Move outdoors everyday from 12-3pm, water biweekly",
-      rating: 5.0,
-      reviews: 318,
-      price: 5,
-      imageUrl: "/plant3.webp",
-      favorite: false,
-    },
-  ];
+  const [plants, setPlants] = useState([]);
+  // Load plant postings from database
+  useEffect(() => {
+    const dbRef = ref(database);
+    get(child(dbRef, `plants`))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          setPlants(data);
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
 
   return (
     <div className="listings-container">
       <div className="listings-column">
-        <h1 className="page-title">PLANTSAT</h1>
+        <h1 className="page-title">
+          PLANTSAT
+          <button onClick={() => window.location.href = "/posting"}>
+            Create a post
+          </button>
+        </h1>
         <p>200+ plants needing homes</p>
         {plants.map((plant) => (
-          <div key={plant.id} className="plant-card">
+          <div className="plant-card">
             <img src={plant.imageUrl} alt={plant.name} className="listings-plant-image" />
             <div className="plant-info">
               <h2>{plant.name}</h2>
