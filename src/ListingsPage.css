@@ -31,6 +31,7 @@
     align-items: center;
     padding-left: 20px; /* Added padding to start text 20px from the left */
     box-sizing: border-box; /* Include padding in the element's total width */
+    justify-content: space-between;
 }
 
   .plant-card {
@@ -71,4 +72,19 @@
     font-size: 1.5rem;
     cursor: pointer;
   }
+
+  .post-button {
+    border:none;
+    color:white;
+    font-weight: bold;
+    background-color: #8dbf50;
+    width: 10rem;
+    height: 55%;
+    margin-right: 20px;
+    font-size:1.75rem;
+    cursor: pointer;
+  }
   
+  .post-button:hover{
+    background-color: #6f9640;
+  }

@@ -31,14 +31,14 @@ const FormComponent = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Should be either hash value or changed to userId later
-    const plantId = 3;
-    const dbRef = ref(database, `plants/${plantId}`);
+    const plantId = Math.floor(Math.random() * 100) + 3;
+    const dbRef = ref(database, `plants/${parseInt(plantId)}`);
     set(dbRef, {
-      care: "Take out daily for sun",
-      duration: "3 weeks",
+      care: formData.careDetails,
+      duration: formData.duration,
       favorite: false,
-      imageUrl: "/plant3.webp",
-      name: "Palm tree",
+      imageUrl: "/plant1.webp",
+      name: formData.name,
       price: 30,
       reviews: 200,
       rating: 4
@@ -94,7 +94,7 @@ const FormComponent = () => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="description">Description</label>
+        <label htmlFor="description">Price</label>
         <input
           type="text"
           id="description"

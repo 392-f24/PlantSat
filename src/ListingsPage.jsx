@@ -12,7 +12,8 @@ const ListingsPage = () => {
       .then((snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
-          setPlants(data);
+          const plantsArray = Object.values(data);
+          setPlants(plantsArray);
         } else {
           console.log("No data available");
         }
@@ -27,13 +28,13 @@ const ListingsPage = () => {
       <div className="listings-column">
         <h1 className="page-title">
           PLANTSAT
-          <button onClick={() => window.location.href = "/posting"}>
-            Create a post
+          <button className="post-button" onClick={() => window.location.href = "/posting"}>
+            Post
           </button>
         </h1>
         <p>200+ plants needing homes</p>
         {plants.map((plant) => (
-          <div className="plant-card">
+          <div key={plant.name} className="plant-card">
             <img src={plant.imageUrl} alt={plant.name} className="listings-plant-image" />
             <div className="plant-info">
               <h2>{plant.name}</h2>
