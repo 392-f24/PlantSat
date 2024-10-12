@@ -25,7 +25,6 @@ const ListingsPage = ({uid}) => {
 
   return (
     <div className="listings-container">
-      <h1>{uid}</h1>
       <div className="listings-column">
         <h1 className="page-title">
           PLANTSAT
