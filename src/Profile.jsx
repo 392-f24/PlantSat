@@ -30,7 +30,7 @@ const ProfileComponent = ({uid}) => {
     e.preventDefault();
     // Should be either hash value or changed to userId later
     const plantId = Math.floor(Math.random() * 100) + 3;
-    const dbRef = ref(database, `plants/${parseInt(plantId)}`);
+    const dbRef = ref(database, `users/${uid}`);
     set(dbRef, {
       care: profileData.careDetails,
       duration: profileData.duration,
