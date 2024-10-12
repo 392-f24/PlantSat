@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Home.css"; // Add your CSS for styling
 
-const Home = () => {
+const Home = ({uid}) => {
     const handleRedirect = () => {
         if (uid !== null) {
             window.location.href = "/listings";

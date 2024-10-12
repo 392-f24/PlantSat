@@ -14,7 +14,7 @@ const App = () => {
     <Router>
       <Routes>
         {/* Define the HomePage route */}
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home uid={uid}/>} />
         {/* Define the ListingsPage route */}
         <Route path="/listings" element={<ListingsPage uid={uid}/>} />
         <Route path="/posting" element={<FormComponent/>}/>

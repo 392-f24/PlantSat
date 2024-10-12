@@ -1,13 +1,15 @@
 import { getAuth,  signInWithPopup} from "firebase/auth";
 import { provider } from "./utilities/firebase";
+import { useNavigate } from "react-router-dom";
 const LoginPage = ({setUid}) => {
     const auth = getAuth();
+    const navigate = useNavigate();
     const handleSignIn = () => {
         signInWithPopup(auth, provider)
             .then((result) => {
                 const user = result.user;
                 setUid(user.uid);
-                window.location.href = "/profile";
+                navigate("/profile");
             })
             .catch((error) => {
                 console.error("Error creating account", error);
