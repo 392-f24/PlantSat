@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './styles/FormComponent.css';
 import { database } from './utilities/firebase';
-import { ref, set } from "firebase/database";
+import { ref, set, push } from "firebase/database";
 
 const FormComponent = () => {
   const [formData, setFormData] = useState({
@@ -28,12 +28,15 @@ const FormComponent = () => {
     });
   };
 
+  // use push so each post has unique ID
+  // each post could also hold user id to
+  // show responsibility of post and allow editing and cancelling
+  // other choice is to have each user have a post field showing the
+  // posts that the user owns.
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Should be either hash value or changed to userId later
-    const plantId = Math.floor(Math.random() * 100) + 3;
-    const dbRef = ref(database, `plants/${parseInt(plantId)}`);
-    set(dbRef, {
+    const dbRef = ref(database, 'posts');
+    push(dbRef, {
       care: formData.careDetails,
       duration: formData.duration,
       favorite: false,
@@ -49,8 +52,8 @@ const FormComponent = () => {
     })
     // catch error
     .catch((error) => {
-      console.error("Error storing data: ", error)
-    })
+      console.error("Error storing data: ", error);
+    });
   };
 
   return (

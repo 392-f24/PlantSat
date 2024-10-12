@@ -3,7 +3,7 @@ import { ref, child, get } from "firebase/database";
 import { database } from "./utilities/firebase";
 import "./ListingsPage.css"; // Include your custom CSS for this page
 
-const ListingsPage = () => {
+const ListingsPage = ({uid}) => {
   const [plants, setPlants] = useState([]);
   // Load plant postings from database
   useEffect(() => {
@@ -25,6 +25,7 @@ const ListingsPage = () => {
 
   return (
     <div className="listings-container">
+      <h1>{uid}</h1>
       <div className="listings-column">
         <h1 className="page-title">
           PLANTSAT
