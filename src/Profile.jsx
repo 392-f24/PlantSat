@@ -59,8 +59,8 @@ const ProfileComponent = () => {
         <label htmlFor="firstName">First Name</label>
         <input
           type="text"
-          id="first-name"
-          name="first-name"
+          id="firstName"
+          name="firstName"
           value={profileData.firstName}
           onChange={handleInputChange}
           required
@@ -71,8 +71,8 @@ const ProfileComponent = () => {
         <label htmlFor="lastName">Last Name</label>
         <input
           type="text"
-          id="last-name"
-          name="last-name"
+          id="lastName"
+          name="lastName"
           value={profileData.lastName}
           onChange={handleInputChange}
           required
@@ -80,7 +80,7 @@ const ProfileComponent = () => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="duration">Address</label>
+        <label htmlFor="address">Address</label>
         <input
           type="text"
           id="address"
@@ -102,7 +102,7 @@ const ProfileComponent = () => {
         {profileData.pic && <p className="file-info">Selected file: {profileData.pic.name}</p>}
       </div>
 
-      <button type="submit" className="submit-button">Complete</button>
+      <button type="submit" className="submit-button" onClick={() => window.location.href = "/listings"}>Complete</button>
     </form>
   );
 };

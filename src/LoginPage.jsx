@@ -7,7 +7,7 @@ const LoginPage = ({setUid}) => {
             .then((result) => {
                 const user = result.user;
                 setUid(user.uid);
-                window.location.href = "/listings";
+                window.location.href = "/profile";
             })
             .catch((error) => {
                 console.error("Error creating account", error);
