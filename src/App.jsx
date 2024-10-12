@@ -17,7 +17,7 @@ const App = () => {
         {/* Define the ListingsPage route */}
         <Route path="/listings" element={<ListingsPage uid={uid}/>} />
         <Route path="/posting" element={<FormComponent/>}/>
-        <Route path="/profile" element={<ProfileComponent/>}/>
+        <Route path="/profile" element={<ProfileComponent uid={uid}/>}/>
         <Route path="/login" element={<LoginPage setUid={setUid}/>}/>
       </Routes>
     </Router>

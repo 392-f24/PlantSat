@@ -3,7 +3,7 @@ import './styles/FormComponent.css';
 import { database } from './utilities/firebase';
 import { ref, set } from "firebase/database";
 
-const ProfileComponent = () => {
+const ProfileComponent = ({uid}) => {
   const [profileData, setProfileData] = useState({
     firstName: '',
     lastName: '',

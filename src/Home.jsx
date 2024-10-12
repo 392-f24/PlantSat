@@ -5,7 +5,6 @@ import { provider } from "./utilities/firebase";
 import { useNavigate } from "react-router-dom";
 
 const Home = ({uid, setUid}) => {
-
     const auth = getAuth();
     const navigate = useNavigate();
     const handleSignIn = () => {
