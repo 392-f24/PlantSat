@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './styles/FormComponent.css';
 import { database } from './utilities/firebase';
 import { ref, set, get } from "firebase/database";
+import { Autocomplete } from '@react-google-maps/api';
 
 const ProfileComponent = ({ user }) => {
   const [profileData, setProfileData] = useState({
@@ -12,6 +13,7 @@ const ProfileComponent = ({ user }) => {
   });
 
   const [newUser, setNewUser] = useState(false);
+  const [autocomplete, setAutocomplete] = useState(null);
 
   useEffect(() => {
     const dbRef = ref(database, `users/${user.uid}`);
@@ -55,6 +57,18 @@ const ProfileComponent = ({ user }) => {
     });
   };
 
+  const handleAutocompleteLoad = (autocomplete) => {
+    setAutocomplete(autocomplete);
+  };
+
+  const handleAddressChange = () => {
+    const place = autocomplete.getPlace();
+    setProfileData({
+      ...profileData,
+      address: place.formatted_address,
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (newUser && (!profileData.address || !profileData.firstName || !profileData.lastName)) {
@@ -67,8 +81,8 @@ const ProfileComponent = ({ user }) => {
       firstName: profileData.firstName,
       lastName: profileData.lastName,
       address: profileData.address,
-      pic: profileData.pic, // Add this if you want to update the picture as well
-      email: user.email // Include email only if newUser
+      pic: profileData.pic,
+      email: user.email
     };
 
     set(dbRef, updatedData)
@@ -111,14 +125,16 @@ const ProfileComponent = ({ user }) => {
 
       <div className="form-group">
         <label htmlFor="address">Address</label>
-        <input
-          type="text"
-          id="address"
-          name="address"
-          value={profileData.address}
-          onChange={handleInputChange}
-          required
-        />
+        <Autocomplete onLoad={handleAutocompleteLoad} onPlaceChanged={handleAddressChange}>
+          <input
+            type="text"
+            id="address"
+            name="address"
+            value={profileData.address}
+            onChange={handleInputChange}
+            required
+          />
+        </Autocomplete>
       </div>
 
       <div className="form-group">

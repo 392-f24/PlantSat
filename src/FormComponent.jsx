@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import './styles/FormComponent.css';
 import { database } from './utilities/firebase';
 import { ref, push } from "firebase/database";
+import { useNavigate } from 'react-router-dom';
 
 const FormComponent = ({user}) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     phoneNumber: '',
@@ -49,7 +51,7 @@ const FormComponent = ({user}) => {
     })
     // successful posting redirects user to postings
     .then(() => {
-      window.location.href = "/listings";
+      navigate('/listings');
     })
     // catch error
     .catch((error) => {
