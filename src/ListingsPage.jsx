@@ -14,11 +14,14 @@ const ListingsPage = () => {
   // Load plant postings from database
   useEffect(() => {
     const dbRef = ref(database);
-    get(child(dbRef, `plants`))
+    get(child(dbRef, `posts`))
       .then((snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
-          const plantsArray = Object.values(data);
+          const plantsArray = Object.entries(data).map(([id, plant]) => ({
+            id, // Include the plant ID
+            ...plant // Spread the existing plant data
+          }));
           setPlants(plantsArray);
         } else {
           console.log("No data available");
@@ -28,6 +31,7 @@ const ListingsPage = () => {
         console.error("Error fetching data:", error);
       });
   }, []);
+  
 
   const handleMoreDetails = (plant) => {
     setSelectedPlant(plant);

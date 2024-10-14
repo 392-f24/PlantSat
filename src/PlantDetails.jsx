@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { database } from "./utilities/firebase";
 import "./styles/PlantDetails.css";
+import { ref, get } from "firebase/database";
 
 const PlantDetails = ({ plant, onClose }) => {
   if (!plant) return null;
-
+  const [owner, setOwner] = useState(null);
+  useEffect(()=>{
+    const dbRef = ref(database, `users/${plant.owner}`);
+    get(dbRef).then((snapshot) => {
+      const owner = snapshot.val();
+      setOwner(owner);
+    })
+  })
   return (
     <div className="popup-overlay" onClick={onClose}>
       <div className="popup-content" onClick={(e) => e.stopPropagation()}>
@@ -20,8 +29,8 @@ const PlantDetails = ({ plant, onClose }) => {
         </div>
         <div className="popup-details-section">
           <h3>Owner Information</h3>
-          <p>Name: {plant.ownerName}</p>
-          <p>City: {plant.city}</p>
+          <p>Name: {owner.firstName} {owner.lastName}</p>
+          <p>City: {owner.address}</p>
           <p>Email: {plant.email}</p>
           <p>Phone: {plant.phone}</p>
         </div>
