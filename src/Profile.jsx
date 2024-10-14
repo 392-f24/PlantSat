@@ -3,7 +3,7 @@ import './styles/FormComponent.css';
 import { database } from './utilities/firebase';
 import { ref, set, get } from "firebase/database";
 
-const ProfileComponent = ({user}) => {
+const ProfileComponent = ({ user }) => {
   const [profileData, setProfileData] = useState({
     firstName: '',
     lastName: '',
@@ -16,10 +16,17 @@ const ProfileComponent = ({user}) => {
   useEffect(() => {
     const dbRef = ref(database, `users/${user.uid}`);
     get(dbRef).then((snapshot) => {
-      if (!snapshot.exists()){
+      if (!snapshot.exists()) {
         setNewUser(true);
-      }
-      else {
+        const displayName = user.displayName || '';
+        const names = displayName.split(' ');
+        setProfileData({
+          firstName: names[0] || '',
+          lastName: names.slice(1).join(' ') || '',
+          address: '',
+          pic: null
+        });
+      } else {
         const userData = snapshot.val();
         setProfileData({
           firstName: userData.firstName || '',
@@ -30,8 +37,8 @@ const ProfileComponent = ({user}) => {
       }
     }).catch((error) => {
       console.error("Error fetching user", error);
-    })
-  }), [user];
+    });
+  }, [user]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -50,23 +57,28 @@ const ProfileComponent = ({user}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (newUser && (!profileData.address || !profileData.firstName || !profileData.lastName)){
+    if (newUser && (!profileData.address || !profileData.firstName || !profileData.lastName)) {
       alert("Please fill in all fields");
       return;
     }
 
     const dbRef = ref(database, `users/${user.uid}`);
-    set(dbRef, {
+    const updatedData = {
       firstName: profileData.firstName,
       lastName: profileData.lastName,
-      address: profileData.address
-    })
-    .then(() => {
-      window.location.href = "/listings";
-    })
-    .catch((error) => {
-      console.error("Error storing data: ", error)
-    })
+      address: profileData.address,
+      pic: profileData.pic, // Add this if you want to update the picture as well
+      email: user.email // Include email only if newUser
+    };
+
+    set(dbRef, updatedData)
+      .then(() => {
+        console.log("Profile updated successfully");
+        window.location.href = "/listings";
+      })
+      .catch((error) => {
+        console.error("Error storing data: ", error);
+      });
   };
 
   return (
@@ -120,7 +132,7 @@ const ProfileComponent = ({user}) => {
         {profileData.pic && <p className="file-info">Selected file: {profileData.pic.name}</p>}
       </div>
 
-      <button type="submit" className="submit-button" onClick={() => window.location.href = "/listings"}>Complete</button>
+      <button type="submit" className="submit-button">Complete</button>
     </form>
   );
 };

@@ -6,13 +6,25 @@ import { ref, get } from "firebase/database";
 const PlantDetails = ({ plant, onClose }) => {
   if (!plant) return null;
   const [owner, setOwner] = useState(null);
-  useEffect(()=>{
+  const [loading, setLoading] = useState(true); // New loading state
+
+  useEffect(() => {
     const dbRef = ref(database, `users/${plant.owner}`);
-    get(dbRef).then((snapshot) => {
-      const owner = snapshot.val();
-      setOwner(owner);
-    })
-  })
+    get(dbRef)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          setOwner(snapshot.val());
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching owner data:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [plant.owner]);
+
+  if (loading) return <div>Loading...</div>;
   return (
     <div className="popup-overlay" onClick={onClose}>
       <div className="popup-content" onClick={(e) => e.stopPropagation()}>
@@ -31,7 +43,7 @@ const PlantDetails = ({ plant, onClose }) => {
           <h3>Owner Information</h3>
           <p>Name: {owner.firstName} {owner.lastName}</p>
           <p>City: {owner.address}</p>
-          <p>Email: {plant.email}</p>
+          <p>Email: {owner.email}</p>
           <p>Phone: {plant.phone}</p>
         </div>
         <div className="popup-actions">
