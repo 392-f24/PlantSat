@@ -3,11 +3,13 @@ import { ref, child, get } from "firebase/database";
 import { database } from "./utilities/firebase";
 import "./ListingsPage.css"; // Include your custom CSS for this page
 import PlantDetails from "./PlantDetails";
+import { useNavigate } from "react-router-dom";
 
-const ListingsPage = ({uid}) => {
+const ListingsPage = () => {
   const [plants, setPlants] = useState([]);
   const [selectedPlant, setSelectedPlant] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+  const navigate = useNavigate();
 
   // Load plant postings from database
   useEffect(() => {
@@ -42,7 +44,7 @@ const ListingsPage = ({uid}) => {
       <div className="listings-column">
         <h1 className="page-title">
           PLANTSAT
-          <button className="post-button" onClick={() => window.location.href = "/posting"}>
+          <button className="post-button" onClick={() => navigate('/posting')}>
             Post
           </button>
         </h1>

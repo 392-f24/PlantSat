@@ -3,24 +3,37 @@ import "./Home.css"; // Add your CSS for styling
 import { getAuth,  signInWithPopup} from "firebase/auth";
 import { provider } from "./utilities/firebase";
 import { useNavigate } from "react-router-dom";
+import { database } from "./utilities/firebase";
+import { ref, get } from "firebase/database";
 
-const Home = ({uid, setUid}) => {
+const Home = ({user, setUser}) => {
     const auth = getAuth();
     const navigate = useNavigate();
+
     const handleSignIn = () => {
         signInWithPopup(auth, provider)
             .then((result) => {
                 const user = result.user;
-                setUid(user.uid);
-                navigate("/profile");
+                setUser(user);
+                const dbRef = ref(database, `users/${user.uid}`)
+                get(dbRef).then((snapshot) => {
+                    if (!snapshot.exists()){
+                        navigate("/profile");
+                    }
+                    else {
+                        navigate('/listings')
+                    }
+                }).catch((error) => {
+                    console.error("Error fetching user", error)
+                })
             })
             .catch((error) => {
                 console.error("Error creating account", error);
             })
     }
     const handleRedirect = () => {
-        if (uid !== null) {
-            window.location.href = "/listings";
+        if (user !== null && user.id !== null) {
+            navigate("/listings");
         }
         else {
             handleSignIn();

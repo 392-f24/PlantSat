@@ -1,15 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles/FormComponent.css';
 import { database } from './utilities/firebase';
-import { ref, set } from "firebase/database";
+import { ref, set, get } from "firebase/database";
 
-const ProfileComponent = ({uid}) => {
+const ProfileComponent = ({user}) => {
   const [profileData, setProfileData] = useState({
     firstName: '',
     lastName: '',
     address: '',
     pic: null,
   });
+
+  const [newUser, setNewUser] = useState(false);
+
+  useEffect(() => {
+    const dbRef = ref(database, `users/${user.uid}`);
+    get(dbRef).then((snapshot) => {
+      if (!snapshot.exists()){
+        setNewUser(true);
+      }
+      else {
+        const userData = snapshot.val();
+        setProfileData({
+          firstName: userData.firstName || '',
+          lastName: userData.lastName || '',
+          address: userData.address || '',
+          pic: userData.pic || null,
+        });
+      }
+    }).catch((error) => {
+      console.error("Error fetching user", error);
+    })
+  }), [user];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,30 +44,26 @@ const ProfileComponent = ({uid}) => {
   const handleImageUpload = (e) => {
     setProfileData({
       ...profileData,
-      image: e.target.files[0],
+      pic: e.target.files[0],
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Should be either hash value or changed to userId later
-    const plantId = Math.floor(Math.random() * 100) + 3;
-    const dbRef = ref(database, `users/${uid}`);
+    if (newUser && (!profileData.address || !profileData.firstName || !profileData.lastName)){
+      alert("Please fill in all fields");
+      return;
+    }
+
+    const dbRef = ref(database, `users/${user.uid}`);
     set(dbRef, {
-      care: profileData.careDetails,
-      duration: profileData.duration,
-      favorite: false,
-      imageUrl: "/plant1.webp",
-      name: profileData.name,
-      price: 30,
-      reviews: 200,
-      rating: 4
+      firstName: profileData.firstName,
+      lastName: profileData.lastName,
+      address: profileData.address
     })
-    // successful posting redirects user to postings
     .then(() => {
       window.location.href = "/listings";
     })
-    // catch error
     .catch((error) => {
       console.error("Error storing data: ", error)
     })

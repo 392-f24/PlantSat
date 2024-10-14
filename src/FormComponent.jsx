@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import './styles/FormComponent.css';
 import { database } from './utilities/firebase';
-import { ref, set, push } from "firebase/database";
+import { ref, push } from "firebase/database";
 
-const FormComponent = () => {
+const FormComponent = ({user}) => {
   const [formData, setFormData] = useState({
     name: '',
     phoneNumber: '',
@@ -37,6 +37,7 @@ const FormComponent = () => {
     e.preventDefault();
     const dbRef = ref(database, 'posts');
     push(dbRef, {
+      owner: user.uid,
       care: formData.careDetails,
       duration: formData.duration,
       favorite: false,
