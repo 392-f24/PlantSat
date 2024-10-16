@@ -4,10 +4,12 @@ import { database } from "./utilities/firebase";
 import "./ListingsPage.css"; // Include your custom CSS for this page
 import PlantDetails from "./PlantDetails";
 import { useNavigate } from "react-router-dom";
+import MapComponent from "./MapComponent";
 
-const ListingsPage = () => {
+const ListingsPage = ({ user }) => {
   const [plants, setPlants] = useState([]);
   const [selectedPlant, setSelectedPlant] = useState(null);
+  const [userLocation, setUserLocation] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
 
@@ -30,8 +32,37 @@ const ListingsPage = () => {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []);
-  
+      const userRef = ref(database, `users/${user.uid}`);
+        get(userRef).then((snapshot) => {
+          if (snapshot.exists()) {
+            const userData = snapshot.val();
+            geocodeAddress(userData.address);
+            console.log(userData.address)
+          } else {
+            console.log("No user data available");
+          }
+        }).catch((error) => {
+          console.error("Error fetching user address:", error);
+        });
+      }, [user]);
+
+      const defaultLocation = { lat: 42.0451, lng: -87.6877 }; // Evanston coordinates
+
+      const geocodeAddress = (address) => {
+        const geocoder = new window.google.maps.Geocoder();
+        geocoder.geocode({ address }, (results, status) => {
+          if (status === "OK" && results[0]) {
+            const { lat, lng } = results[0].geometry.location;
+            setUserLocation({ lat: lat(), lng: lng() });
+          } else {
+            console.warn("Geocoding failed. Using default location.");
+            setUserLocation(defaultLocation);
+          }
+        });
+      };
+
+
+
 
   const handleMoreDetails = (plant) => {
     setSelectedPlant(plant);
@@ -78,15 +109,7 @@ const ListingsPage = () => {
         ))}
       </div>
       <div className="map-column">
-        <iframe
-          title="map"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.83543450961!2d144.95373631550455!3d-37.8162797420218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf57745cd8eddfd55!2sFederation%20Square!5e0!3m2!1sen!2sau!4v1631094448985!5m2!1sen!2sau"
-          width="100%"
-          height="100%"
-          style={{ border: "0" }}
-          allowFullScreen=""
-          loading="lazy"
-        ></iframe>
+        {userLocation && <MapComponent plants={plants} userLocation={userLocation} />}
       </div>
 
       {showPopup && (

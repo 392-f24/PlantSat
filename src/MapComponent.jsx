@@ -1,51 +1,50 @@
-// MapComponent.js
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 
-const MapComponent = ({ plants }) => {
-    const mapRef = useRef(null);
+const MapComponent = ({ plants, userLocation }) => {
+  const mapRef = useRef(null);
 
-    useEffect(() => {
-    
-    const handleLocation = (position) => {
-        const { latitude, longitude } = position.coords;
-        const map = new window.google.maps.Map(mapRef.current, {
-            center: { lat: latitude, lng: longitude },
-            zoom: 12,
-        });
-        plants.forEach(plant => {
-            const marker = new window.google.maps.Marker({
-                position: { lat: plant.location.lat, lng: plant.location.lng },
-                map: map,
-                title: plant.name,
-                icon: 'path/to/icon.png',
-            });
-            const infowindow = new window.google.maps.InfoWindow({
-                content: `<h3>${plant.name}</h3><p>${plant.care}</p>`,
-            });
-            marker.addListener('click', () => {
-            infowindow.open(map, marker);
-            });
-        });
-    };
-
-    const handleError = (error) => {
-        console.error("Error getting location: ", error);
-        const defaultLocation = { lat: -37.816279, lng: 144.953736 };
-        const map = new window.google.maps.Map(mapRef.current, {
-        center: defaultLocation,
-        zoom: 12,
-        });
-    };
-
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(handleLocation, handleError);
-    } else {
-        handleError(new Error("Geolocation not supported"));
+  useEffect(() => {
+    if (!userLocation) {
+      console.error("User location is not available.");
+      return;
     }
 
-    }, [plants]);
+    const map = new window.google.maps.Map(mapRef.current, {
+      center: userLocation,
+      zoom: 12,
+    });
 
-    return <div ref={mapRef} style={{ width: '100%', height: '100%' }} />;
+    // Add marker for user's location
+    new window.google.maps.Marker({
+      position: userLocation,
+      map: map,
+      title: "Your Location",
+      icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+    });
+
+    plants.forEach((plant) => {
+      if (plant.location && plant.location.lat !== undefined && plant.location.lng !== undefined) {
+        const marker = new window.google.maps.Marker({
+          position: { lat: plant.location.lat, lng: plant.location.lng },
+          map: map,
+          title: plant.name,
+          icon: "path/to/icon.png", // replace
+        });
+
+        const infowindow = new window.google.maps.InfoWindow({
+          content: `<h3>${plant.name}</h3><p>${plant.care}</p>`,
+        });
+
+        marker.addListener("click", () => {
+          infowindow.open(map, marker);
+        });
+      } else {
+        console.warn(`Invalid location for plant: ${plant.name}`);
+      }
+    });
+  }, [plants, userLocation]);
+
+  return <div ref={mapRef} style={{ width: "100%", height: "100%" }} />;
 };
 
 export default MapComponent;
