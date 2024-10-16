@@ -14,6 +14,11 @@ const Home = ({user, setUser}) => {
         signInWithPopup(auth, provider)
             .then((result) => {
                 const user = result.user;
+                console.log('User Data:', user);  // Full user object
+                console.log('User UID:', user.uid);  // User ID
+                console.log('User Email:', user.email);  // User Email
+                console.log('User Display Name:', user.displayName);  // Display Name
+                console.log('Profile Photo:', user.photoURL);  // Profile Picture URL
                 setUser(user);
                 const dbRef = ref(database, `users/${user.uid}`)
                 get(dbRef).then((snapshot) => {

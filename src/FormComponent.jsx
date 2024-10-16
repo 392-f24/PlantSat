@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import './styles/FormComponent.css';
 import { database } from './utilities/firebase';
 import { ref, push } from "firebase/database";
-import { useNavigate } from 'react-router-dom';
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const FormComponent = ({user}) => {
   const navigate = useNavigate();
+  const storage = getStorage();
+  console.log("in FormComponent", user)
   const [formData, setFormData] = useState({
     name: '',
     phoneNumber: '',
@@ -30,33 +33,50 @@ const FormComponent = ({user}) => {
     });
   };
 
+  const uploadImageAndGetUrl = async (image) => {
+    const imageRef = storageRef(storage, `images/${image.name}`);
+    await uploadBytes(imageRef, image); // upload the image
+    return await getDownloadURL(imageRef); // get the download URL
+  };
+
   // use push so each post has unique ID
   // each post could also hold user id to
   // show responsibility of post and allow editing and cancelling
   // other choice is to have each user have a post field showing the
   // posts that the user owns.
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const dbRef = ref(database, 'posts');
-    push(dbRef, {
-      owner: user.uid,
-      care: formData.careDetails,
-      duration: formData.duration,
-      favorite: false,
-      imageUrl: "/plant1.webp",
-      name: formData.name,
-      price: 30,
-      reviews: 200,
-      rating: 4
-    })
-    // successful posting redirects user to postings
-    .then(() => {
+    try {
+        let imageUrl = '';
+        if (formData.image) {
+          imageUrl = await uploadImageAndGetUrl(formData.image); // Upload and get the URL
+      }
+
+      console.log("imgaeUrl: ", imageUrl);
+    
+
+      const dbRef = ref(database, 'posts');
+      await push(dbRef, {
+        owner: user.uid,
+        care: formData.careDetails,
+        duration: formData.duration,
+        favorite: false,
+        imageUrl: imageUrl || "/plant1.webp",
+        name: formData.name,
+        price: formData.description,
+        reviews: 200,
+        rating: 4
+      })
+      
       navigate('/listings');
-    })
+    }
+
+    
+    
     // catch error
-    .catch((error) => {
+    catch(error)  {
       console.error("Error storing data: ", error);
-    });
+    };
   };
 
   return (
