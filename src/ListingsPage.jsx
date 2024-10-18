@@ -118,7 +118,6 @@ const ListingsPage = ({ user }) => {
         >
           <option value="default">Default</option>
           <option value="price">Price</option>
-          <option value="rating">Rating</option>
           <option value="duration">Duration</option>
         </select>
 
@@ -128,8 +127,8 @@ const ListingsPage = ({ user }) => {
             <div className="plant-info">
               <h2>{plant.name}</h2>
               <p>{plant.location && <em>{plant.location}</em>}</p>
-              <p>{plant.duration}</p>
-              <p>{plant.care}</p>
+              <p><strong>Duration:</strong> {plant.duration} weeks</p>
+              <p><strong>Care Details:</strong> {plant.care}</p>
             </div>
             <div className="plant-action">
               <p className="price">${plant.price} /week</p>
