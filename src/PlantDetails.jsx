@@ -3,7 +3,7 @@ import { database } from "./utilities/firebase";
 import "./styles/PlantDetails.css";
 import { ref, get } from "firebase/database";
 
-const PlantDetails = ({ plant, onClose }) => {
+const PlantDetails = ({ plant, onClose, handleBooking }) => {
   if (!plant) return null;
   const [owner, setOwner] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -45,7 +45,10 @@ const PlantDetails = ({ plant, onClose }) => {
           <p>Phone: {plant.phoneNumber}</p>
         </div>
         <div className="popup-actions">
-          <button className="book-now-btn">Book Now</button>
+          <button className="book-now-btn"
+            onClick={()=>handleBooking(plant.id)}>
+              Book Now
+          </button>
         </div>
       </div>
     </div>
