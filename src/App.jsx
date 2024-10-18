@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ListingsPage from './ListingsPage';
 import FormComponent from './FormComponent';
 import ProfileComponent from './Profile';
+import MyPostingsComponent from './MyPostings'
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/listings" element={<ListingsPage/>} />
         <Route path="/posting" element={<FormComponent user={user}/>}/>
         <Route path="/profile" element={<ProfileComponent user={user}/>}/>
+        <Route path="/my-postings" element={<MyPostingsComponent user={user} />} />
       </Routes>
     </Router>
   );

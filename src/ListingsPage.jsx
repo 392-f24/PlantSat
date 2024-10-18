@@ -51,6 +51,9 @@ const ListingsPage = () => {
           <button className="post-button" onClick={() => navigate('/posting')}>
             Post
           </button>
+          <button className="my-postings-button" onClick={() => navigate('/my-postings')}>
+            My Postings
+          </button>
         </h1>
         <p>200+ plants needing homes</p>
         {plants.map((plant) => (
