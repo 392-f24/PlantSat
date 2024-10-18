@@ -24,7 +24,8 @@ const ListingsPage = ({ user }) => {
             id,
             ...plant
           }));
-          setPlants(plantsArray);
+          const filteredPlants = plantsArray.filter(plant => plant.owner !== user.uid);
+          setPlants(filteredPlants);
         } else {
           console.log("No data available");
         }
@@ -32,7 +33,7 @@ const ListingsPage = ({ user }) => {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-
+  
     const userRef = ref(database, `users/${user.uid}`);
     get(userRef).then((snapshot) => {
       if (snapshot.exists()) {
@@ -45,6 +46,7 @@ const ListingsPage = ({ user }) => {
       console.error("Error fetching user address:", error);
     });
   }, [user]);
+  
 
   const sortPlants = (plantsArray) => {
     switch (sortCriteria) {
@@ -85,7 +87,7 @@ const ListingsPage = ({ user }) => {
       const updatedRequests = Array.isArray(currentRequests) ? currentRequests : [];
       if (!updatedRequests.includes(user.uid)) {
         updatedRequests.push(user.uid);
-      }
+      } 
       await set(dbRef, updatedRequests);
     } catch (error) {
       console.error("Error updating booking:", error);
@@ -132,7 +134,7 @@ const ListingsPage = ({ user }) => {
             </div>
             <div className="plant-action">
               <p className="price">${plant.price}</p>
-              <button className="details-btn" onClick={() => handleMoreDetails(plant)}>
+              <button className="book-btn" onClick={() => handleMoreDetails(plant)}>
                 Book / More Details
               </button>
             </div>
