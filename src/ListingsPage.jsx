@@ -132,9 +132,6 @@ const ListingsPage = ({ user }) => {
             </div>
             <div className="plant-action">
               <p className="price">${plant.price}</p>
-              <button className="favorite-btn">
-                {plant.favorite ? "❤️" : "🤍"}
-              </button>
               <button className="details-btn" onClick={() => handleMoreDetails(plant)}>
                 Book / More Details
               </button>
