@@ -45,9 +45,8 @@ const PlantDetails = ({ plant, onClose, handleBooking }) => {
           <p>Phone: {plant.phoneNumber}</p>
         </div>
         <div className="popup-actions">
-          <button className="book-now-btn"
-            onClick={()=>handleBooking(plant.id)}>
-              Book Now
+          <button className="book-now-btn" onClick={() => handleBooking(plant)}>
+            Book Now
           </button>
         </div>
       </div>
