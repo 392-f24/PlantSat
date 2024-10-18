@@ -53,7 +53,7 @@ const FormComponent = ({ user }) => {
   };
 
   const isPriceValid = (price) => {
-    const pricePattern = /^\d+(\.\d{1,2})?$/;
+    const pricePattern = /^\d+\.\d{2}$/;
     return pricePattern.test(price);
   };
 

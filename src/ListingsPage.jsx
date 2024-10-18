@@ -131,7 +131,7 @@ const ListingsPage = ({ user }) => {
               <p><strong>Care Details:</strong> {plant.care}</p>
             </div>
             <div className="plant-action">
-              <p className="price">${plant.price} /week</p>
+              <p className="price">${plant.price}</p>
               <button className="favorite-btn">
                 {plant.favorite ? "❤️" : "🤍"}
               </button>
