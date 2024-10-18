@@ -27,22 +27,23 @@
     padding: 0;
   }
   
-.page-title {
-    font-size: 2.5rem;
-    color: #8dbf50;
-    font-weight: bold;
-    background-color: #EBEBE5;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0; /* Ensure the title spans the full width of the viewport */
-    margin: 0; /* Remove any default margin */
-    height: 65px;
-    display: flex;
-    align-items: center;
-    padding-left: 20px; /* Added padding to start text 20px from the left */
-    box-sizing: border-box; /* Include padding in the element's total width */
-    justify-content: space-between;
+.title-page {
+  font-size: 2.5rem;
+  color: #8dbf50;
+  font-weight: bold;
+  background-color: #EBEBE5;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0; /* Ensure the title spans the full width of the viewport */
+  margin: 0; /* Remove any default margin */
+  height: 65px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px; /* Added padding to start text 20px from the left */
+  box-sizing: border-box; /* Include padding in the element's total width */
+  justify-content: space-between;
 }
 
   .plant-card {

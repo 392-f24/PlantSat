@@ -22,9 +22,8 @@ const MyPostingsComponent = ({ user }) => {
               id,
               ...post,
             }));
-
           const updatedPosts = await Promise.all(userPosts.map(async (post) => {
-            const userInfos = await Promise.all(post.requests.map(async (uid) => {
+            const userInfos = await Promise.all((post.requests || []).map(async (uid) => {
               const userSnapshot = await get(child(dbRef, `users/${uid}`));
               return userSnapshot.exists() ? { uid, ...userSnapshot.val() } : null;
             }));
@@ -56,16 +55,18 @@ const MyPostingsComponent = ({ user }) => {
 
   return (
     <div className="my-postings-container">
-      <h1 className="page-title">
-        <button className="post-button" onClick={() => navigate('/listings')}>
-          Home
-        </button>
+      <h1 className="title-page">
         My Postings
-        <button className="post-button" onClick={() => navigate('/posting')}>
-          New Post
-        </button>
+        <div>
+          <button className="post-button" onClick={() => navigate('/listings')}>
+            Home
+          </button>
+          <button className="post-button" onClick={() => navigate('/posting')}>
+            New Post
+          </button>
+        </div>
       </h1>
-      {myPlants.length !== 0 && myPlants.map((plant) => (
+      {myPlants.length !== 0 ? myPlants.map((plant) => (
         <div key={plant.id} className="plant-card">
           <img
             src={plant.imageUrl}
@@ -74,8 +75,8 @@ const MyPostingsComponent = ({ user }) => {
           />
           <div className="plant-info">
             <h2>{plant.name}</h2>
-            <p>{plant.duration}</p>
-            <p>{plant.care}</p>
+            <p><strong>Duration: </strong>{plant.duration} weeks</p>
+            <p><strong>Care Details:</strong>{plant.care}</p>
             <div className="request-info">
               <h3>Requests to Care:</h3>
               {plant.userInfos.length > 0 ? (
@@ -99,7 +100,9 @@ const MyPostingsComponent = ({ user }) => {
             </button>
           </div>
         </div>
-      ))}
+      )) : (
+        <p>No postings available.</p>
+      )}
     </div>
   );
 };
