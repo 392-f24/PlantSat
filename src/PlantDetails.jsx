@@ -33,18 +33,16 @@ const PlantDetails = ({ plant, onClose, handleBooking }) => {
         <img src={plant.imageUrl} alt={plant.name} className="popup-plant-image" />
         <div className="popup-details-section">
           <h3>Sitting Details</h3>
-          <p>Duration: {plant.duration}</p>
-          <p>Compensation: {plant.price}</p>
-          <p>Watering: {plant.care}</p>
-          <p>Sunlight: {plant.sunlight}</p>
-          <p>Special Notes: {plant.specialNotes}</p>
+          <p>Duration: {plant.duration} weeks</p>
+          <p>Total Compensation: ${plant.price}</p>
+          <p>Care Details: {plant.care}</p>
         </div>
         <div className="popup-details-section">
           <h3>Owner Information</h3>
           <p>Name: {owner.firstName} {owner.lastName}</p>
           <p>City: {owner.address}</p>
           <p>Email: {owner.email}</p>
-          <p>Phone: {plant.phone}</p>
+          <p>Phone: {plant.phoneNumber}</p>
         </div>
         <div className="popup-actions">
           <button className="book-now-btn"
