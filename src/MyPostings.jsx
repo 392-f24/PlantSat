@@ -13,7 +13,7 @@ const MyPostingsComponent = ({ user }) => {
 
     const dbRef = ref(database);
     get(child(dbRef, 'posts'))
-      .then((snapshot) => {
+      .then(async (snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
           const userPosts = Object.entries(data)
@@ -22,7 +22,16 @@ const MyPostingsComponent = ({ user }) => {
               id,
               ...post,
             }));
-          setMyPlants(userPosts);
+
+          const updatedPosts = await Promise.all(userPosts.map(async (post) => {
+            const userInfos = await Promise.all(post.requests.map(async (uid) => {
+              const userSnapshot = await get(child(dbRef, `users/${uid}`));
+              return userSnapshot.exists() ? { uid, ...userSnapshot.val() } : null;
+            }));
+            return { ...post, userInfos: userInfos.filter(info => info) };
+          }));
+
+          setMyPlants(updatedPosts);
         } else {
           console.log('No data available');
         }
@@ -67,9 +76,18 @@ const MyPostingsComponent = ({ user }) => {
             <h2>{plant.name}</h2>
             <p>{plant.duration}</p>
             <p>{plant.care}</p>
-            <p>
-              <strong>{plant.rating} ⭐</strong> ({plant.reviews} reviews)
-            </p>
+            <div className="request-info">
+              <h3>Requests to Care:</h3>
+              {plant.userInfos.length > 0 ? (
+                plant.userInfos.map(userInfo => (
+                  <div key={userInfo.uid}>
+                    <p>{userInfo.firstName} {userInfo.lastName} (Contact Information: {userInfo.email})</p>
+                  </div>
+                ))
+              ) : (
+                <p>No requests yet.</p>
+              )}
+            </div>
           </div>
           <div className="plant-action">
             <p className="price">${plant.price} /week</p>

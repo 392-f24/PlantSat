@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ref, child, get, set } from "firebase/database";
 import { database } from "./utilities/firebase";
-import "./ListingsPage.css"; // Include your custom CSS for this page
+import "./ListingsPage.css";
 import PlantDetails from "./PlantDetails";
 import { useNavigate } from "react-router-dom";
 import MapComponent from "./MapComponent";
