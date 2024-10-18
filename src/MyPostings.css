@@ -1,3 +1,14 @@
+.my-postings-container {
+    padding: 40px;
+  }
+  
+  .buttons-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+
 .listings-container {
     display: flex;
     height: 100vh;
@@ -22,7 +33,6 @@
     font-weight: bold;
     background-color: #EBEBE5;
     position: absolute;
-    width: 67%;
     top: 0;
     left: 0;
     right: 0; /* Ensure the title spans the full width of the viewport */
@@ -81,6 +91,7 @@
     background-color: #8dbf50;
     width: 10rem;
     height: 55%;
+    margin-right: 20px;
     font-size:1.75rem;
     cursor: pointer;
   }
@@ -105,3 +116,18 @@
   .my-postings-button:hover{
     background-color: #6f9640;
   }
+
+  .delete-button {
+    border: none;
+    background-color: #ff4d4d;
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .delete-button:hover {
+    background-color: #e60000;
+  }
+  
