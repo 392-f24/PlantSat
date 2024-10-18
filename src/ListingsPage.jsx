@@ -131,8 +131,8 @@ const ListingsPage = ({ user }) => {
               <p><strong>Care Details:</strong> {plant.care}</p>
             </div>
             <div className="plant-action">
-              <p className="price">${plant.price} /week</p>
-              <button className="book-btn" onClick={() => handleMoreDetails(plant)}>
+              <p className="price">${plant.price}</p>
+              <button className="details-btn" onClick={() => handleMoreDetails(plant)}>
                 Book / More Details
               </button>
             </div>
