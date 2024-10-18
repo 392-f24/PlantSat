@@ -12,6 +12,7 @@ const ListingsPage = ({ user }) => {
   const [selectedPlant, setSelectedPlant] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [sortCriteria, setSortCriteria] = useState("default"); // New state for sorting
+  const [bookingMessage, setBookingMessage] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,7 +47,6 @@ const ListingsPage = ({ user }) => {
       console.error("Error fetching user address:", error);
     });
   }, [user]);
-  
 
   const sortPlants = (plantsArray) => {
     switch (sortCriteria) {
@@ -64,6 +64,7 @@ const ListingsPage = ({ user }) => {
   const handleMoreDetails = (plant) => {
     setSelectedPlant(plant);
     setShowPopup(true);
+    setBookingMessage("");
   };
 
   const handleMarkerClick = (plantOrPlants) => {
@@ -80,7 +81,7 @@ const ListingsPage = ({ user }) => {
   };
 
   const handleBooking = async (plant) => {
-    const dbRef = ref(database, `posts/${plant}/requests`);
+    const dbRef = ref(database, `posts/${plant.id}/requests`);
     try {
       const snapshot = await get(dbRef);
       const currentRequests = snapshot.exists() ? snapshot.val() : [];
@@ -89,6 +90,7 @@ const ListingsPage = ({ user }) => {
         updatedRequests.push(user.uid);
       } 
       await set(dbRef, updatedRequests);
+      setBookingMessage(`Your interest in plant-sitting for "${plant.name}" has been confirmed. Your contact information has been sent to the lister, and they will reach out if it is the right fit!`);
     } catch (error) {
       console.error("Error updating booking:", error);
     }
@@ -123,6 +125,12 @@ const ListingsPage = ({ user }) => {
           <option value="duration">Duration</option>
         </select>
 
+        {bookingMessage && (
+          <div className="booking-message">
+            <p>{bookingMessage}</p>
+          </div>
+        )}
+
         {sortPlants(plants).map((plant) => (
           <div key={plant.name} className="plant-card">
             <img src={plant.imageUrl} alt={plant.name} className="listings-plant-image" />
@@ -153,4 +161,3 @@ const ListingsPage = ({ user }) => {
 };
 
 export default ListingsPage;
-
