@@ -130,16 +130,10 @@ const ListingsPage = ({ user }) => {
               <p>{plant.location && <em>{plant.location}</em>}</p>
               <p>{plant.duration}</p>
               <p>{plant.care}</p>
-              <p>
-                <strong>{plant.rating} ⭐</strong> ({plant.reviews} reviews)
-              </p>
             </div>
             <div className="plant-action">
               <p className="price">${plant.price} /week</p>
-              <button className="favorite-btn">
-                {plant.favorite ? "❤️" : "🤍"}
-              </button>
-              <button className="details-btn" onClick={() => handleMoreDetails(plant)}>
+              <button className="book-btn" onClick={() => handleMoreDetails(plant)}>
                 Book / More Details
               </button>
             </div>

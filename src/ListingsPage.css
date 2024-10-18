@@ -103,3 +103,15 @@
   .my-postings-button:hover{
     background-color: #6f9640;
   }
+
+  .book-btn{
+    color: #8dbf50;
+    font-size:1rem;
+    font-weight: bold;
+    border:grey;
+    cursor: pointer;
+  }
+
+  .book-btn:hover{
+    background-color:#6f9640;
+  }
