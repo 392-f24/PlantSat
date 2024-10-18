@@ -74,21 +74,20 @@
     cursor: pointer;
   }
 
-  .post-button {
+  .my-post-button {
     border:none;
-    color:white;
+    color: #8dbf50;
     font-weight: bold;
-    background-color: #8dbf50;
-    width: 10rem;
-    height: 55%;
-    font-size:1.75rem;
+    background-color:transparent;
+    width: 15rem;
+    height: 100%;
+    font-size:1.25rem;
     cursor: pointer;
   }
-  
-  .post-button:hover{
-    background-color: #6f9640;
-  }
 
+  .my-post-button:hover{
+    color:white;
+  }
 
   .my-postings-button {
     border:none;
@@ -97,7 +96,6 @@
     background-color: #8dbf50;
     width: 10rem;
     height: 55%;
-    margin-right: 20px;
     font-size:1rem;
     cursor: pointer;
   }

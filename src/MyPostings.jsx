@@ -45,10 +45,6 @@ const MyPostingsComponent = ({ user }) => {
       });
   };
 
-  if (myPlants.length === 0) {
-    return <p>You have no postings yet.</p>;
-  }
-
   return (
     <div className="my-postings-container">
       <h1 className="page-title">
@@ -60,7 +56,7 @@ const MyPostingsComponent = ({ user }) => {
           New Post
         </button>
       </h1>
-      {myPlants.map((plant) => (
+      {myPlants.length !== 0 && myPlants.map((plant) => (
         <div key={plant.id} className="plant-card">
           <img
             src={plant.imageUrl}

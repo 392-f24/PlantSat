@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { ref, child, get } from "firebase/database";
-import { database } from "./utilities/firebase";
+import { ref, child, get, set } from "firebase/database";
+import { database, useAuthState } from "./utilities/firebase";
 import "./ListingsPage.css"; // Include your custom CSS for this page
 import PlantDetails from "./PlantDetails";
 import { useNavigate } from "react-router-dom";
@@ -31,7 +31,6 @@ const ListingsPage = ({ user }) => {
           .catch((error) => {
               console.error("Error fetching data:", error);
           });
-
       const userRef = ref(database, `users/${user.uid}`);
       get(userRef).then((snapshot) => {
           if (snapshot.exists()) {
@@ -65,16 +64,38 @@ const ListingsPage = ({ user }) => {
       setSelectedPlant(null);
   };
 
+  const handleBooking = async (plant) => {
+    const dbRef = ref(database, `posts/${plant}/requests`);
+    try {
+      const snapshot = await get(dbRef);
+      const currentRequests = snapshot.exists() ? snapshot.val() : [];
+      const updatedRequests = Array.isArray(currentRequests) ? currentRequests : [];
+      if (!updatedRequests.includes(user.uid)) {
+        updatedRequests.push(user.uid);
+      }
+      await set(dbRef, updatedRequests);
+    } catch (error) {
+      console.error("Error updating booking:", error);
+    }
+    handleClosePopup();
+  };
+  
+
   return (
       <div className="listings-container">
           <div className="listings-column">
               <h1 className="page-title">
                   PLANTSAT
-                  <button className="post-button" onClick={() => navigate('/posting')}>
+                  <div>
+                    <button className="my-post-button" onClick={() => navigate('/posting')}>
                       Post
-                  </button>
+                    </button>
+                    <button className="my-post-button" onClick={()=>navigate('/my-postings')}>
+                      My Postings
+                    </button>
+                  </div>
               </h1>
-              <p>200+ plants needing homes</p>
+              <p>{plants.length} plants needing homes</p>
               {plants.map((plant) => (
                   <div key={plant.name} className="plant-card">
                       <img src={plant.imageUrl} alt={plant.name} className="listings-plant-image" />
@@ -104,7 +125,7 @@ const ListingsPage = ({ user }) => {
           </div>
 
           {showPopup && (
-              <PlantDetails plant={selectedPlant} onClose={handleClosePopup} />
+              <PlantDetails plant={selectedPlant} onClose={handleClosePopup} handleBooking={handleBooking} />
           )}
       </div>
   );
