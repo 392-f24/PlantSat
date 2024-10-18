@@ -22,6 +22,7 @@
     font-weight: bold;
     background-color: #EBEBE5;
     position: absolute;
+    width: 67%;
     top: 0;
     left: 0;
     right: 0; /* Ensure the title spans the full width of the viewport */
@@ -80,7 +81,6 @@
     background-color: #8dbf50;
     width: 10rem;
     height: 55%;
-    margin-right: 20px;
     font-size:1.75rem;
     cursor: pointer;
   }

@@ -14,7 +14,7 @@ const App = () => {
         {/* Define the HomePage route */}
         <Route path="/" element={<Home user={user} setUser={setUser}/>} />
         {/* Define the ListingsPage route */}
-        <Route path="/listings" element={<ListingsPage/>} />
+        <Route path="/listings" element={<ListingsPage user={user}/>} />
         <Route path="/posting" element={<FormComponent user={user}/>}/>
         <Route path="/profile" element={<ProfileComponent user={user}/>}/>
         <Route path="/my-postings" element={<MyPostingsComponent user={user} />} />

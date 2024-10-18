@@ -6,7 +6,7 @@ import { ref, get } from "firebase/database";
 const PlantDetails = ({ plant, onClose }) => {
   if (!plant) return null;
   const [owner, setOwner] = useState(null);
-  const [loading, setLoading] = useState(true); // New loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const dbRef = ref(database, `users/${plant.owner}`);
