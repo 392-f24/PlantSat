@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ref, child, get } from "firebase/database";
 import { database } from "./utilities/firebase";
-import "./ListingsPage.css"; // Include your custom CSS for this page
+import "./ListingsPage.css";
 import PlantDetails from "./PlantDetails";
 import { useNavigate } from "react-router-dom";
 import MapComponent from "./MapComponent";
@@ -81,14 +81,11 @@ const ListingsPage = ({ user }) => {
                       <div className="plant-info">
                           <h2>{plant.name}</h2>
                           <p>{plant.location && <em>{plant.location}</em>}</p>
-                          <p>{plant.duration}</p>
-                          <p>{plant.care}</p>
-                          <p>
-                              <strong>{plant.rating} ⭐</strong> ({plant.reviews} reviews)
-                          </p>
+                          <p><strong>Duration:</strong> {plant.duration} weeks</p>
+                          <p><strong>Care Details:</strong> {plant.care}</p>
                       </div>
                       <div className="plant-action">
-                          <p className="price">${plant.price} /week</p>
+                          <p className="price">${plant.price}</p>
                           <button className="favorite-btn">
                               {plant.favorite ? "❤️" : "🤍"}
                           </button>

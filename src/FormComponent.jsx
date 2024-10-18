@@ -3,20 +3,22 @@ import './styles/FormComponent.css';
 import { database } from './utilities/firebase';
 import { ref, push } from "firebase/database";
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const FormComponent = ({user}) => {
+const FormComponent = ({ user }) => {
   const navigate = useNavigate();
   const storage = getStorage();
-  console.log("in FormComponent", user)
+
   const [formData, setFormData] = useState({
     name: '',
     phoneNumber: '',
     duration: '',
-    description: '',
+    price: '',
     careDetails: '',
     image: null,
   });
+
+  const [error, setError] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -39,49 +41,71 @@ const FormComponent = ({user}) => {
     return await getDownloadURL(imageRef); // get the download URL
   };
 
-  // use push so each post has unique ID
-  // each post could also hold user id to
-  // show responsibility of post and allow editing and cancelling
-  // other choice is to have each user have a post field showing the
-  // posts that the user owns.
+  const isPhoneNumberValid = (phone) => {
+    const phonePattern = /^\d{3}-\d{3}-\d{4}$/;
+    return phonePattern.test(phone);
+  };
+  
+
+  const isDurationValid = (duration) => {
+    const durationInt = parseInt(duration, 10);
+    return !isNaN(durationInt) && durationInt > 0;
+  };
+
+  const isPriceValid = (price) => {
+    const pricePattern = /^\d+(\.\d{1,2})?$/;
+    return pricePattern.test(price);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-        let imageUrl = '';
-        if (formData.image) {
-          imageUrl = await uploadImageAndGetUrl(formData.image); // Upload and get the URL
-      }
+    setError('');
 
-      console.log("imgaeUrl: ", imageUrl);
-    
+    if (!isPhoneNumberValid(formData.phoneNumber)) {
+      setError('Invalid phone number format');
+      return;
+    }
+
+    if (!isDurationValid(formData.duration)) {
+      setError('Duration must be a positive integer');
+      return;
+    }
+
+    if (!isPriceValid(formData.price)) {
+      setError('Invalid price. Price should be a number with up to two decimal places.');
+      return;
+    }
+
+    try {
+      let imageUrl = '';
+      if (formData.image) {
+        imageUrl = await uploadImageAndGetUrl(formData.image); // Upload and get the URL
+      }
 
       const dbRef = ref(database, 'posts');
       await push(dbRef, {
         owner: user.uid,
+        phoneNumber: formData.phoneNumber,
         care: formData.careDetails,
         duration: formData.duration,
         favorite: false,
         imageUrl: imageUrl || "/plant1.webp",
         name: formData.name,
-        price: formData.description,
-        reviews: 200,
-        rating: 4
-      })
-      
-      navigate('/listings');
-    }
+        price: formData.price,
+      });
 
-    
-    
-    // catch error
-    catch(error)  {
+      navigate('/listings');
+    } catch (error) {
       console.error("Error storing data: ", error);
-    };
+      setError("An error occurred while submitting the form.");
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="form-container">
       <h2 className="form-title">Fill out this information to get started</h2>
+
+      {error && <p className="error-message">{error}</p>}
 
       <div className="form-group">
         <label htmlFor="name">Name</label>
@@ -101,6 +125,7 @@ const FormComponent = ({user}) => {
           type="tel"
           id="phoneNumber"
           name="phoneNumber"
+          placeholder="xxx-xxx-xxxx"
           value={formData.phoneNumber}
           onChange={handleInputChange}
           required
@@ -113,6 +138,7 @@ const FormComponent = ({user}) => {
           type="text"
           id="duration"
           name="duration"
+          placeholder="Number of weeks"
           value={formData.duration}
           onChange={handleInputChange}
           required
@@ -120,12 +146,13 @@ const FormComponent = ({user}) => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="description">Price</label>
+        <label htmlFor="price">Price</label>
         <input
           type="text"
-          id="description"
-          name="description"
-          value={formData.description}
+          id="price"
+          name="price"
+          placeholder="0.00"
+          value={formData.price}
           onChange={handleInputChange}
           required
         />
@@ -137,6 +164,7 @@ const FormComponent = ({user}) => {
           type="text"
           id="careDetails"
           name="careDetails"
+          placeholder="Any details that would be useful for your plant caretaker to know, like how often to water."
           value={formData.careDetails}
           onChange={handleInputChange}
           required
