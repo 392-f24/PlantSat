@@ -6,10 +6,10 @@ import FormComponent from './FormComponent';
 import { vi } from 'vitest';
 
 vi.mock('firebase/database', async (importOriginal) => {
-    const actual = await importOriginal(); // Import the real module
+    const actual = await importOriginal(); 
     return {
-      ...actual, // Spread in real functions
-      getDatabase: vi.fn(), // Mock getDatabase
+      ...actual,
+      getDatabase: vi.fn(),
       ref: vi.fn(),
       push: vi.fn(),
     };
@@ -17,8 +17,8 @@ vi.mock('firebase/database', async (importOriginal) => {
   
 
 vi.mock('firebase/storage', () => ({
-getStorage: vi.fn(() => ({})), // Mock storage object
-ref: vi.fn(() => ({ path: 'images/test-image.png' })), // Mock storage reference
+getStorage: vi.fn(() => ({})), 
+ref: vi.fn(() => ({ path: 'images/test-image.png' })), 
 uploadBytes: vi.fn(),
 getDownloadURL: vi.fn(),
 }));
@@ -35,16 +35,16 @@ describe('FormComponent post upload', () => {
   it('should upload a post with correct format and configuration', async () => {
     const mockImage = new File(['(⌐□_□)'], 'test-image.png', { type: 'image/png' });
   
-    // Mocking Firebase storage behavior
-    const mockRef = { path: 'images/test-image.png' }; // Mock reference object
-    vi.mocked(ref).mockReturnValueOnce(mockRef); // Ensure ref returns this object
-    vi.mocked(uploadBytes).mockResolvedValueOnce(); // Mock image upload
-    vi.mocked(getDownloadURL).mockResolvedValueOnce('https://mock.url/test-image.png'); // Mock URL retrieval
-    vi.mocked(push).mockResolvedValueOnce(); // Mock database push
+    
+    const mockRef = { path: 'images/test-image.png' }; 
+    vi.mocked(ref).mockReturnValueOnce(mockRef); 
+    vi.mocked(uploadBytes).mockResolvedValueOnce(); 
+    vi.mocked(getDownloadURL).mockResolvedValueOnce('https://mock.url/test-image.png');
+    vi.mocked(push).mockResolvedValueOnce(); 
   
     render(<FormComponent user={mockUser} />, { wrapper: MemoryRouter });
   
-    // Simulate form input
+    
     fireEvent.change(screen.getByLabelText(/Name/i), { target: { value: 'Fern' } });
     fireEvent.change(screen.getByLabelText(/Phone Number/i), { target: { value: '123-456-7890' } });
     fireEvent.change(screen.getByLabelText(/Duration/i), { target: { value: '2' } });
@@ -52,20 +52,18 @@ describe('FormComponent post upload', () => {
     fireEvent.change(screen.getByLabelText(/Care Details/i), { target: { value: 'Water daily' } });
     fireEvent.change(screen.getByLabelText(/Upload Image/i), { target: { files: [mockImage] } });
   
-    // Simulate form submission
+    
     fireEvent.click(screen.getByRole('button', { name: /Submit/i }));
   
     await waitFor(() => {
-      // Ensure uploadBytes was called with the correct arguments
+      
       expect(uploadBytes).toHaveBeenCalledWith(
-        mockRef, // The reference object
-        mockImage // The uploaded image file
+        mockRef, 
+        mockImage 
       );
   
-      // Ensure getDownloadURL was called
       expect(getDownloadURL).toHaveBeenCalledTimes(1);
   
-      // Ensure push was called with the correct arguments
       expect(push).toHaveBeenCalledWith(mockRef, {
         owner: mockUser.uid,
         phoneNumber: '123-456-7890',
@@ -77,7 +75,6 @@ describe('FormComponent post upload', () => {
         price: '15.99',
       });
   
-      // Ensure no validation errors were shown
       expect(screen.queryByText(/Invalid/i)).toBeNull();
     });
   });
