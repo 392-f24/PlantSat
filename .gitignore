@@ -84,7 +84,7 @@ sketch
 ### Vite ###
 dist
 
-coverage
+coverage/
 
 ### Windows ###
 # Windows thumbnail cache files
