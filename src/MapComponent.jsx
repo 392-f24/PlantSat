@@ -26,7 +26,6 @@ const MapComponent = ({ userLocation, plants, onMarkerClick }) => {
 
     useEffect(() => {
         if (!userLocation) {
-            console.error("User location is not available.");
             return;
         } else {
             geocodeAddress(userLocation)
