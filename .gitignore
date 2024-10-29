@@ -84,6 +84,8 @@ sketch
 ### Vite ###
 dist
 
+coverage
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
