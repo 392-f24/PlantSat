@@ -1,19 +1,30 @@
-import {describe, expect, test} from 'vitest';
-import {fireEvent, render, screen} from '@testing-library/react';
-import App from './App';
+import { describe, it, expect, vi } from 'vitest';
+import { render, fireEvent, screen } from '@testing-library/react';
+import { MemoryRouter, useNavigate } from 'react-router-dom';
+import ListingsPage from './ListingsPage';
 
-describe('counter tests', () => {
-    
-  test("Counter should be 0 at the start", () => {
-    render(<App />);
-    expect(screen.getByText('count is: 0')).toBeDefined();
+vi.mock('react-router-dom', () => {
+  const originalModule = vi.importActual('react-router-dom');
+  return {
+    ...originalModule,
+    useNavigate: vi.fn(),
+    MemoryRouter: ({ children }) => <div>{children}</div>
+  };
+});
+
+const mockUser = {
+  uid: 'test-user-id'
+};
+
+describe('my postings navigation', () => {
+  it('navigates to my postings page on My Postings button click', () => {
+    const navigate = vi.fn();
+    vi.mocked(useNavigate).mockImplementation(() => navigate);
+
+    render(<ListingsPage user={mockUser} />, { wrapper: MemoryRouter });
+
+    fireEvent.click(screen.getByText('My Postings'));
+
+    expect(navigate).toHaveBeenCalledWith('/my-postings');
   });
-
-  test("Counter should increment by one when clicked", async () => {
-    render(<App />);
-    const counter = screen.getByRole('button');
-    fireEvent.click(counter);
-    expect(await screen.getByText('count is: 1')).toBeDefined();
-  });
-
 });
