@@ -1,0 +1,457 @@
+commit c9939a4c214d09385fe5bf482200c17872d8a5fd
+Author: alizenart <97767073+alizenart@users.noreply.github.com>
+Date:   Mon Oct 28 23:51:04 2024 -0500
+
+    home test
+
+M	src/FormComponent.test.jsx
+A	src/Home.test.jsx
+
+commit 51d58e4866e5f2f0f1b6c160eac6bac89a9f4501
+Author: alizenart <97767073+alizenart@users.noreply.github.com>
+Date:   Mon Oct 28 23:40:30 2024 -0500
+
+    FormComponent test
+
+A	src/FormComponent.test.jsx
+
+commit d5034d6d34953764a350a4ec748c56aeff6d478a
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Mon Oct 28 20:45:01 2024 -0500
+
+    Test existing user signin redirect
+
+A	src/UserAuth.test.jsx
+
+commit 5e0586c2bf7b5c869f742a3acc009da664a4b948
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Mon Oct 28 19:04:18 2024 -0500
+
+    delete coverage from commit
+
+D	coverage/base.css
+D	coverage/block-navigation.js
+D	coverage/coverage-final.json
+D	coverage/favicon.png
+D	coverage/index.html
+D	coverage/prettify.css
+D	coverage/prettify.js
+D	coverage/sort-arrow-sprite.png
+D	coverage/sorter.js
+D	coverage/src/App.jsx.html
+D	coverage/src/FormComponent.jsx.html
+D	coverage/src/Home.jsx.html
+D	coverage/src/ListingsPage.jsx.html
+D	coverage/src/MapComponent.jsx.html
+D	coverage/src/MyPostings.jsx.html
+D	coverage/src/PlantDetails.jsx.html
+D	coverage/src/Profile.jsx.html
+D	coverage/src/index.html
+D	coverage/src/index.jsx.html
+D	coverage/src/utilities/firebase.js.html
+D	coverage/src/utilities/index.html
+D	coverage/src/utilities/profile.js.html
+
+commit 9b88028be3f53b73e7864bb6ea11e7fc66910956
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Mon Oct 28 19:03:37 2024 -0500
+
+    adjust coverage from gitignore
+
+M	.gitignore
+
+commit 90dca0cc3ec5a836b631f0f1e566348c6c30a1dd
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Mon Oct 28 19:02:33 2024 -0500
+
+    remove coverage from git
+
+M	.gitignore
+
+commit 4f21c16f9c79fe04d282e62bc7e343e43a7a8479
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Mon Oct 28 19:00:33 2024 -0500
+
+    Test my postings redirection
+
+A	coverage/base.css
+A	coverage/block-navigation.js
+A	coverage/coverage-final.json
+A	coverage/favicon.png
+A	coverage/index.html
+A	coverage/prettify.css
+A	coverage/prettify.js
+A	coverage/sort-arrow-sprite.png
+A	coverage/sorter.js
+A	coverage/src/App.jsx.html
+A	coverage/src/FormComponent.jsx.html
+A	coverage/src/Home.jsx.html
+A	coverage/src/ListingsPage.jsx.html
+A	coverage/src/MapComponent.jsx.html
+A	coverage/src/MyPostings.jsx.html
+A	coverage/src/PlantDetails.jsx.html
+A	coverage/src/Profile.jsx.html
+A	coverage/src/index.html
+A	coverage/src/index.jsx.html
+A	coverage/src/utilities/firebase.js.html
+A	coverage/src/utilities/index.html
+A	coverage/src/utilities/profile.js.html
+M	database.rules.json
+M	src/App.test.jsx
+M	src/MapComponent.jsx
+M	vite.config.js
+
+commit 708fd41c4dbf9cced1e4bfdabebc7e5cbeff08f9
+Author: Mark Fortes <mlgmokus@gmail.com>
+Date:   Fri Oct 18 14:46:20 2024 -0500
+
+    added confirmation message
+
+M	src/ListingsPage.css
+M	src/ListingsPage.jsx
+M	src/PlantDetails.jsx
+
+commit beb749762252977c188329464b370a17e80e91da
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Fri Oct 18 14:38:12 2024 -0500
+
+    fix Firebase hosting and MyPostings
+
+M	firebase.json
+M	src/MyPostings.css
+M	src/MyPostings.jsx
+
+commit 305a922c63986f6bc0bb9b50fc5de1ea084300b8
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Fri Oct 18 14:22:35 2024 -0500
+
+    Present only posts that user has not made
+
+M	src/ListingsPage.jsx
+
+commit 26e0b4c58bf8cc5e6c94d678891e99a1885fabd5
+Author: Mark Fortes <mlgmokus@gmail.com>
+Date:   Fri Oct 18 14:12:51 2024 -0500
+
+    quick fixes
+
+M	src/FormComponent.jsx
+M	src/ListingsPage.jsx
+
+commit 19790ff5499e77aebf5ceb08c1b63f7267438377
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Fri Oct 18 14:05:15 2024 -0500
+
+    clean up listing page
+
+M	src/ListingsPage.css
+M	src/ListingsPage.jsx
+
+commit 9309e78ae0e99422dd68e25a16bded9abddef600
+Author: Mark Fortes <mlgmokus@gmail.com>
+Date:   Fri Oct 18 13:59:41 2024 -0500
+
+    standardized forms and fields
+
+M	src/FormComponent.jsx
+M	src/ListingsPage.jsx
+M	src/PlantDetails.jsx
+
+commit 16eb4decbbffeed253d316a4d19a24f4a4e0c62a
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Fri Oct 18 13:39:29 2024 -0500
+
+    Show requester information
+
+M	src/ListingsPage.jsx
+M	src/MyPostings.jsx
+
+commit 0d9446f0b88195dd346d6d51df670636c89f366d
+Author: VihaanShah26 <vihaanshah2026@u.northwestern.edu>
+Date:   Fri Oct 18 13:37:55 2024 -0500
+
+    Added Sorting
+
+M	src/ListingsPage.jsx
+
+commit 4bd0e72d1265d4fe7a733f9e892417d210018cd0
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Fri Oct 18 13:05:37 2024 -0500
+
+    Remove function import
+
+M	src/ListingsPage.jsx
+
+commit 75e91447ce88748b2d6f385cccd35bf792335160
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Fri Oct 18 13:04:06 2024 -0500
+
+    Add booking and my posts page
+
+M	src/ListingsPage.css
+M	src/ListingsPage.jsx
+M	src/MyPostings.jsx
+M	src/PlantDetails.jsx
+
+commit a7ee310bcb229ca1fc07eb2b3e50c403a664b254
+Author: alizenart <97767073+alizenart@users.noreply.github.com>
+Date:   Fri Oct 18 10:50:30 2024 -0500
+
+    Add My Postings Page
+
+M	src/App.jsx
+M	src/ListingsPage.css
+M	src/ListingsPage.jsx
+A	src/MyPostings.css
+A	src/MyPostings.jsx
+
+commit 42d13d64a9a1afb30bccf9da3d38a46fc71134d5
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Fri Oct 18 00:47:08 2024 -0500
+
+    Add user and owner markers on map
+
+M	database.rules.json
+M	index.html
+M	src/App.jsx
+M	src/Home.jsx
+M	src/ListingsPage.css
+M	src/ListingsPage.jsx
+M	src/MapComponent.jsx
+M	src/PlantDetails.jsx
+M	src/utilities/firebase.js
+A	src/utilities/profile.js
+
+commit 15162350f6a5dfae064defa515459965e6a3ffbd
+Author: alizenart <97767073+alizenart@users.noreply.github.com>
+Date:   Wed Oct 16 12:48:50 2024 -0500
+
+    Plant image uploads with posting
+
+M	firebase.json
+M	package-lock.json
+M	package.json
+M	src/FormComponent.jsx
+M	src/Home.jsx
+
+commit ff553d386aedd32baf7fe198530591ee29ef5ad5
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Mon Oct 14 16:25:26 2024 -0500
+
+    Add address autocomplete
+
+M	index.html
+M	src/FormComponent.jsx
+M	src/Profile.jsx
+
+commit cbbc7f3afcf48fce09a8d872eb275432e319f76a
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Mon Oct 14 16:01:35 2024 -0500
+
+    Save email on account creation
+
+M	src/PlantDetails.jsx
+M	src/Profile.jsx
+
+commit 2cec01ef60cf3854ef42eab4594a69ef061eb5fb
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Mon Oct 14 15:24:34 2024 -0500
+
+    Display plant owner information for posts
+
+M	index.html
+M	src/ListingsPage.jsx
+A	src/MapComponent.jsx
+M	src/PlantDetails.jsx
+
+commit e1d99d1f729d00a429c28413c47da7b603523758
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Mon Oct 14 12:33:18 2024 -0500
+
+    Create user entry in database
+
+M	src/App.jsx
+M	src/FormComponent.jsx
+M	src/Home.jsx
+M	src/ListingsPage.jsx
+D	src/LoginPage.jsx
+M	src/Profile.jsx
+
+commit 941462c52ea9c591cdaf4f69e3cd60d45b28438d
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Sat Oct 12 16:59:02 2024 -0500
+
+    Change database reference for profile
+
+M	src/Profile.jsx
+
+commit 03ca610af082307e6f0171aa09550383667f4fe1
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Sat Oct 12 16:55:38 2024 -0500
+
+    Pass uid to profile component
+
+M	src/App.jsx
+M	src/Home.jsx
+M	src/Profile.jsx
+
+commit 92aad902fcca085ed8ef7c279c234e52bbdfa49a
+Author: VihaanShah26 <vihaanshah2026@u.northwestern.edu>
+Date:   Sat Oct 12 16:52:51 2024 -0500
+
+    Fixed Refactoring issue
+
+D	src/App.css
+M	src/App.jsx
+M	src/Home.jsx
+M	src/index.jsx
+R100	src/index.css	src/styles/index.css
+
+commit f19da4f3775da8e7fb497dd46058aea622992ddd
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Sat Oct 12 16:30:58 2024 -0500
+
+    Store global uid state
+
+M	src/App.jsx
+M	src/Home.jsx
+M	src/LoginPage.jsx
+
+commit eb19a327571a6c78a7b87ff131e2d7e11f48647e
+Author: Mark Fortes <mlgmokus@gmail.com>
+Date:   Sat Oct 12 16:30:01 2024 -0500
+
+    created listing details page
+
+M	src/ListingsPage.jsx
+A	src/PlantDetails.jsx
+A	src/styles/PlantDetails.css
+
+commit f55be9290d727ca02bd638c23c0e4de2c6eb0e2c
+Author: VihaanShah26 <vihaanshah2026@u.northwestern.edu>
+Date:   Sat Oct 12 16:27:02 2024 -0500
+
+    Profile creation
+
+M	src/LoginPage.jsx
+M	src/Profile.jsx
+
+commit 3a3f451c908611daea8f461c6f14a1925d2b3995
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Sat Oct 12 16:19:32 2024 -0500
+
+    Begin work on uid logic
+
+M	src/App.jsx
+M	src/ListingsPage.jsx
+
+commit e6c34e4303a16e9a1b8732d00ae6d77acda2766c
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Sat Oct 12 16:16:50 2024 -0500
+
+    Initialize google authentication
+
+M	src/FormComponent.jsx
+M	src/Home.jsx
+M	src/ListingsPage.jsx
+A	src/LoginPage.jsx
+M	src/utilities/firebase.js
+
+commit 6fc89b2f944bf5e01e30426266d57cabf11ef3c6
+Author: VihaanShah26 <vihaanshah2026@u.northwestern.edu>
+Date:   Sat Oct 12 16:11:18 2024 -0500
+
+    Profile Page
+
+M	src/App.jsx
+A	src/Profile.jsx
+
+commit 6bbd0dc59c7cbff5fe693b4ecc8e170139a9b8b8
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Mon Oct 7 13:37:51 2024 -0500
+
+    remove some hardcoded logic for form submission
+
+M	firebase.json
+M	src/FormComponent.jsx
+M	src/ListingsPage.css
+M	src/ListingsPage.jsx
+
+commit 8d6c877efdd02f4187e9f8e1738251707e727fdc
+Author: angelp03 <angelpimentel2025@u.northwestern.edu>
+Date:   Sun Oct 6 16:41:29 2024 -0500
+
+    added database integration
+
+A	database.rules.json
+M	firebase.json
+M	package-lock.json
+M	package.json
+A	public/404.html
+A	public/index.html
+M	src/App.jsx
+M	src/FormComponent.jsx
+M	src/ListingsPage.jsx
+A	src/utilities/firebase.js
+
+commit 0b426ddd03c33620ca63dc81bc99dd24db9e3939
+Author: Mark Fortes <mlgmokus@gmail.com>
+Date:   Sun Oct 6 16:02:27 2024 -0500
+
+    added post form
+
+M	src/App.jsx
+A	src/FormComponent.jsx
+A	src/styles/FormComponent.css
+
+commit 4cd943d6e42b413434da185ac77343da8240cd46
+Author: VihaanShah26 <vihaanshah2026@u.northwestern.edu>
+Date:   Fri Oct 4 15:31:25 2024 -0500
+
+    Home and listings page initial commit
+
+A	.firebaserc
+A	firebase.json
+M	index.html
+M	package-lock.json
+M	package.json
+A	public/homeplant.svg
+A	public/plant1.webp
+A	public/plant2.webp
+A	public/plant3.webp
+M	src/App.css
+M	src/App.jsx
+A	src/Home.css
+A	src/Home.jsx
+A	src/ListingsPage.css
+A	src/ListingsPage.jsx
+
+commit 7e0c30e70be19f5f95e667f1c740211e0cc0ff74
+Author: VihaanShah26 <vihaanshah2026@u.northwestern.edu>
+Date:   Tue Oct 1 17:55:02 2024 -0500
+
+    React init
+
+A	.gitignore
+A	LICENSE
+M	README.md
+A	index.html
+A	package-lock.json
+A	package.json
+A	public/favicon.svg
+A	public/robots.txt
+A	src/App.css
+A	src/App.jsx
+A	src/App.test.jsx
+A	src/index.css
+A	src/index.jsx
+A	src/logo.svg
+A	vite.config.js
+
+commit 684416897ec358d35e2f6f241b10f0269b738ed3
+Author: Vihaan Shah <79374408+VihaanShah26@users.noreply.github.com>
+Date:   Tue Oct 1 17:49:49 2024 -0500
+
+    Initial commit
+
+A	README.md
