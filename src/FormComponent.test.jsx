@@ -4,6 +4,7 @@ import { push, ref } from 'firebase/database';
 import { uploadBytes, getDownloadURL } from 'firebase/storage';
 import FormComponent from './FormComponent';
 import { vi } from 'vitest';
+import '@testing-library/jest-dom';
 
 vi.mock('firebase/database', async (importOriginal) => {
     const actual = await importOriginal(); 
@@ -78,6 +79,30 @@ describe('FormComponent post upload', () => {
       expect(screen.queryByText(/Invalid/i)).toBeNull();
     });
   });
+
+  it('should prevent submission with an invalid phone number format', async () => {
+    const mockImage = new File(['(⌐□_□)'], 'test-image.png', { type: 'image/png' });
+  
+    render(<FormComponent user={mockUser} />, { wrapper: MemoryRouter });
+  
+    fireEvent.change(screen.getByLabelText(/Name/i), { target: { value: 'Fern' } });
+    fireEvent.change(screen.getByLabelText(/Phone Number/i), { target: { value: 'invalid-phone' } }); // Invalid phone number
+    fireEvent.change(screen.getByLabelText(/Duration/i), { target: { value: '2' } });
+    fireEvent.change(screen.getByLabelText(/Price/i), { target: { value: '15.99' } });
+    fireEvent.change(screen.getByLabelText(/Care Details/i), { target: { value: 'Water daily' } });
+    fireEvent.change(screen.getByLabelText(/Upload Image/i), { target: { files: [mockImage] } });
+  
+    fireEvent.click(screen.getByRole('button', { name: /Submit/i }));
+  
+    await waitFor(() => {
+      expect(screen.getByText(/Invalid phone number format/i)).toBeInTheDocument();
+  
+      expect(uploadBytes).not.toHaveBeenCalled();
+      expect(push).not.toHaveBeenCalled();
+    });
+  });
+  
+  
   
   
 
