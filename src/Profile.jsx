@@ -138,7 +138,7 @@ const ProfileComponent = ({ user }) => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="imageUpload">Profile Picture</label>
+        <label htmlFor="pic">Profile Picture</label>
         <input
           type="file"
           id="pic"
